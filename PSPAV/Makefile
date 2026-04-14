@@ -18,7 +18,7 @@ LIBDIR =
 USE_PSPSDK_LIBS = 1
 USE_PSPSDK_LIBC = 1
 
-LIBS = -lpspav -lpsppower -lpspaudio -lpspatrac3 -lpspmpeg -lpspmp3 -lpspsystemctrl_user -lpspsysc_user
+LIBS = -lpspav -lpspvram -lpsppower -lpspaudio -lpspatrac3 -lpspmpeg -lpspmp3 -lpspsystemctrl_user -lpspsysc_user
 
 PSPSDK = $(shell psp-config --pspsdk-path)
 include $(PSPSDK)/lib/build_prx.mak
