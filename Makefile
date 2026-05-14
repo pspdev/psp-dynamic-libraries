@@ -1,24 +1,28 @@
+PY = $(shell which python3)
+PSPDEV = $(shell psp-config --pspdev-path)
+BUILDTOOLS = $(PSPDEV)/share/psp-cfw-sdk/build-tools
+
 all:
 	$(Q)mkdir -p dist/LIBS
 	$(Q)cp pre-built/*.prx dist/LIBS/
 	$(Q)$(MAKE) -C idStorageRegen
-	$(Q)cp idStorageRegen/*.prx dist/LIBS/
+	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/idsregeneration.prx $(BUILDTOOLS)/gz/SystemControl.hdr idStorageRegen/idsregeneration.prx pspIdsRegeneration_Driver 0x3007
 	$(Q)$(MAKE) -C IOPrivileged
-	$(Q)cp IOPrivileged/*.prx dist/LIBS/
+	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/iop.prx $(BUILDTOOLS)/gz/SystemControl.hdr IOPrivileged/iop.prx IoPrivileged 0x3007
 	$(Q)$(MAKE) -C IPL_Updater
-	$(Q)cp IPL_Updater/*.prx dist/LIBS/
+	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/ipl_update.prx $(BUILDTOOLS)/gz/SystemControl.hdr IPL_Updater/ipl_update.prx pspIplUpdate 0x3007
 	$(Q)$(MAKE) -C KBooti_Updater
-	$(Q)cp KBooti_Updater/*.prx dist/LIBS/
+	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/kbooti_update.prx $(BUILDTOOLS)/gz/SystemControl.hdr KBooti_Updater/kbooti_update.prx kbooti_update 0x3007
 	$(Q)$(MAKE) -C Peops
-	$(Q)cp Peops/*.prx dist/LIBS/
+	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/peops.prx $(BUILDTOOLS)/gz/UserModule.hdr Peops/peops.prx peops 0x0000
 	$(Q)$(MAKE) -C PSPAV
-	$(Q)cp PSPAV/*.prx dist/LIBS/
+	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/pspav.prx $(BUILDTOOLS)/gz/UserModule.hdr PSPAV/pspav.prx PSPAV_Player 0x0000
 	$(Q)$(MAKE) -C PSPFTP
-	$(Q)cp PSPFTP/*.prx dist/LIBS/
+	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/pspftp.prx $(BUILDTOOLS)/gz/UserModule.hdr PSPFTP/pspftp.prx FTPlibPSP 0x0000
 	$(Q)$(MAKE) -C PSPIdentHelper
-	$(Q)cp PSPIdentHelper/*.prx dist/LIBS/
+	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/kpspident.prx $(BUILDTOOLS)/gz/SystemControl.hdr PSPIdentHelper/kpspident.prx kpspident 0x3007
 	$(Q)$(MAKE) -C USBDeviceDriver
-	$(Q)cp USBDeviceDriver/*.prx dist/LIBS/
+	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/usbdevice.prx $(BUILDTOOLS)/gz/SystemControl.hdr USBDeviceDriver/usbdevice.prx pspUsbDev_Driver 0x3007
 	$(Q)echo 'All Done!'
 
 
