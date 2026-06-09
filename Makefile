@@ -13,8 +13,6 @@ all:
 	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/ipl_update.prx $(BUILDTOOLS)/gz/SystemControl.hdr IPL_Updater/ipl_update.prx pspIplUpdate 0x1007
 	$(Q)$(MAKE) -C KBooti_Updater
 	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/kbooti_update.prx $(BUILDTOOLS)/gz/SystemControl.hdr KBooti_Updater/kbooti_update.prx kbooti_update 0x1006
-	$(Q)$(MAKE) -C Peops
-	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/peops.prx $(BUILDTOOLS)/gz/UserModule.hdr Peops/peops.prx peops 0x0007
 	$(Q)$(MAKE) -C PSPAV
 	$(PY) $(BUILDTOOLS)/gz/pspgz.py dist/LIBS/pspav.prx $(BUILDTOOLS)/gz/UserModule.hdr PSPAV/pspav.prx PSPAV_Player 0x0006
 	$(Q)$(MAKE) -C PSPFTP
@@ -30,7 +28,6 @@ clean:
 	$(Q)$(MAKE) -C IOPrivileged clean
 	$(Q)$(MAKE) -C IPL_Updater clean
 	$(Q)$(MAKE) -C KBooti_Updater clean
-	$(Q)$(MAKE) -C Peops clean
 	$(Q)$(MAKE) -C PSPAV clean
 	$(Q)$(MAKE) -C PSPFTP clean
 	$(Q)$(MAKE) -C PSPIdentHelper clean
