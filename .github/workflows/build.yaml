@@ -50,7 +50,7 @@ jobs:
       - name: Compress
         run: |
           cd dist/LIBS
-          zip -r ../LIBS.zip .
+          zip -r ../../LIBS.zip .
       
       - name: Upload
         uses: actions/upload-artifact@v7
