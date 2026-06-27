@@ -54,7 +54,8 @@ jobs:
       
       - name: Upload
         uses: actions/upload-artifact@v7
-        with: name: psp-dynamic-libraries-release
+        with: 
+          name: psp-dynamic-libraries-release
           path: LIBS.zip
   release:
     needs: build
