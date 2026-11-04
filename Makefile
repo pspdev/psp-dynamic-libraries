@@ -1,3 +1,4 @@
+ACID_TEST = "Stop breaking my CI"
 PY = $(shell which python3)
 PSPDEV = $(shell psp-config --pspdev-path)
 BUILDTOOLS = $(PSPDEV)/share/psp-cfw-sdk/build-tools
