@@ -11,6 +11,7 @@ target_include_directories(lflash_fdisk PRIVATE ${CFWSDK}/include)
 target_link_directories(lflash_fdisk PRIVATE ${CFWSDK}/libs)
 target_link_libraries(lflash_fdisk PRIVATE
    -nostartfiles
+   pspkernel
    pspdisplay_driver
    pspnand_driver
    pspsystemctrl_kernel
