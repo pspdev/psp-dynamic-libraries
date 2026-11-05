@@ -2,7 +2,7 @@ project(idsregeneration VERSION 1.0 LANGUAGES C ASM)
 
 add_prx_module(idsregeneration exports.exp)
 
-target_sources(idsregeneration PRIVATE 
+target_sources(idsregeneration PRIVATE
    main.c
    src/idsregeneration.c
    src/aes_core.c
@@ -14,11 +14,11 @@ target_link_directories(idsregeneration PRIVATE ${CFWSDK}/libs)
 target_link_libraries(idsregeneration PRIVATE
    -nostartfiles
    -nostdlib
+   pspsdk
+   pspmodinfo
    pspsystemctrl_kernel
    pspdisplay_driver
    pspnand_driver
    psplflash_fatfmt
-   pspsdk
-   pspmodinfo
    pspkernel
 )

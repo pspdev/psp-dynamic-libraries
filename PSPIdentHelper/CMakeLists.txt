@@ -2,9 +2,8 @@ project(kpspident VERSION 1.0 LANGUAGES C ASM)
 
 add_prx_module(kpspident exports.exp)
 
-target_sources(kpspident PRIVATE 
+target_sources(kpspident PRIVATE
    main.c
-   imports.S
 )
 
 target_compile_options(kpspident PRIVATE -Os -G0 -Wall -fno-pic)
