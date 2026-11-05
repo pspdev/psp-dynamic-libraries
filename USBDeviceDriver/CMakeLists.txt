@@ -2,7 +2,7 @@ project(usbdevice VERSION 1.0 LANGUAGES C ASM)
 
 add_prx_module(usbdevice exports.exp)
 
-target_sources(usbdevice PRIVATE 
+target_sources(usbdevice PRIVATE
    main.c
 )
 
@@ -12,10 +12,10 @@ target_link_directories(usbdevice PRIVATE ${CFWSDK}/libs)
 target_link_libraries(usbdevice PRIVATE
    -nostartfiles
    -nostdlib
+   pspsdk
+   pspmodinfo
    pspsystemctrl_kernel
    pspumd_kernel
    pspkubridge
-   pspsdk
-   pspmodinfo
    pspkernel
 )
