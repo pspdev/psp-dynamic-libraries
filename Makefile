@@ -22,6 +22,8 @@ all:
 	cp PSPIdentHelper/kpspident.prx dist/LIBS/
 	$(MAKE) -C USBDeviceDriver
 	cp USBDeviceDriver/usbdevice.prx dist/LIBS/
+	$(MAKE) -C lflash_fdisk
+	cp lflash_fdisk/lflash_fdisk.prx dist/LIBS/
 	echo 'All Done!'
 
 clean:
