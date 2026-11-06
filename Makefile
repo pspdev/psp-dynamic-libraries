@@ -36,4 +36,4 @@ clean:
 	$(MAKE) -C PSPIdentHelper clean
 	$(MAKE) -C USBDeviceDriver clean
 	$(MAKE) -C lflash_fdisk clean
-	rm -rf dist
+	rm -rf dist build

@@ -12,6 +12,7 @@ project(extrautilitymodules VERSION 1.0 LANGUAGES C ASM)
 include(FetchContent)
 
 set(PSPCFWSDK_PATH "" CACHE PATH "Path to local psp-cfw-sdk (for local development)")
+set(BUILD_PROBLEMATIC OFF CACHE BOOL "If to build the problematic modules")
 set(DIST_DIR ${CMAKE_CURRENT_LIST_DIR}/dist)
 set(LIBS_DIR ${DIST_DIR}/LIBS)
 
@@ -49,6 +50,11 @@ add_subdirectory(PSPFTP)
 add_subdirectory(PSPIdentHelper)
 add_subdirectory(USBDeviceDriver)
 add_subdirectory(lflash_fdisk)
+if (BUILD_PROBLEMATIC)
+message(STATUS "Enabling build of problematic modules")
+add_subdirectory(LibPNG)
+add_subdirectory(Unarchiver)
+endif()
 
 add_custom_target(dist ALL
     DEPENDS
@@ -64,7 +70,9 @@ add_custom_target(dist ALL
 
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 
-    COMMAND mkdir -p ${LIBS_DIR}
+    COMMAND ${CMAKE_COMMAND} -E make_directory "${LIBS_DIR}"
+
+    COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_CURRENT_SOURCE_DIR}/pre-built" "${LIBS_DIR}/"
 
     COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:idsregeneration>.prx" "${LIBS_DIR}/"
     COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:iop>.prx" "${LIBS_DIR}/"
@@ -74,4 +82,11 @@ add_custom_target(dist ALL
     COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:kpspident>.prx" "${LIBS_DIR}/"
     COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:usbdevice>.prx" "${LIBS_DIR}/"
     COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:lflash_fdisk>.prx" "${LIBS_DIR}/"
+    COMMAND $<$<TARGET_EXISTS:libpng>:${CMAKE_COMMAND}> $<$<TARGET_EXISTS:libpng>:-E> $<$<TARGET_EXISTS:libpng>:copy> $<$<TARGET_EXISTS:libpng>:"$<TARGET_FILE:libpng>.prx"> $<$<TARGET_EXISTS:libpng>:"${LIBS_DIR}/">
+    COMMAND $<$<TARGET_EXISTS:unarchiver>:${CMAKE_COMMAND}> $<$<TARGET_EXISTS:unarchiver>:-E> $<$<TARGET_EXISTS:unarchiver>:copy> $<$<TARGET_EXISTS:unarchiver>:"$<TARGET_FILE:unarchiver>.prx"> $<$<TARGET_EXISTS:unarchiver>:"${LIBS_DIR}/">
 )
+
+if (BUILD_PROBLEMATIC)
+    message(STATUS "Added problematic modules as dependencies of `dist`")
+    add_dependencies(dist libpng unarchiver)
+endif()
