@@ -12,6 +12,8 @@ project(extrautilitymodules VERSION 1.0 LANGUAGES C ASM)
 include(FetchContent)
 
 set(PSPCFWSDK_PATH "" CACHE PATH "Path to local psp-cfw-sdk (for local development)")
+set(DIST_DIR ${CMAKE_CURRENT_LIST_DIR}/dist)
+set(LIBS_DIR ${DIST_DIR}/LIBS)
 
 if(PSPCFWSDK_PATH)
 message(STATUS "Using local pspcfw repo: ${PSPCFWSDK_PATH}")
@@ -47,3 +49,29 @@ add_subdirectory(PSPFTP)
 add_subdirectory(PSPIdentHelper)
 add_subdirectory(USBDeviceDriver)
 add_subdirectory(lflash_fdisk)
+
+add_custom_target(dist ALL
+    DEPENDS
+        idStorageRegen
+        IOPrivileged
+        IPL_Updater
+        KBootI_Updater
+        PSPAV
+        PSPFTP
+        PSPIdentHelper
+        USBDeviceDriver
+        lflash_fdisk
+
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+
+    COMMAND mkdir -p ${LIBS_DIR}
+
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:idsregeneration>.prx" "${LIBS_DIR}/"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:iop>.prx" "${LIBS_DIR}/"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:ipl_update>.prx" "${LIBS_DIR}/"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:kbooti_update>.prx" "${LIBS_DIR}/"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:pspav>.prx" "${LIBS_DIR}/"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:kpspident>.prx" "${LIBS_DIR}/"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:usbdevice>.prx" "${LIBS_DIR}/"
+    COMMAND ${CMAKE_COMMAND} -E copy "$<TARGET_FILE:lflash_fdisk>.prx" "${LIBS_DIR}/"
+)
