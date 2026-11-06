@@ -3,8 +3,8 @@ PSPSDK=$(shell psp-config --pspsdk-path)
 TARGET = iop
 OBJS = main.o exports.o
 
-INCDIR = 
-CFLAGS = -O2 -Os -G0 -Wall -fshort-wchar -fno-pic -mno-check-zero-division 
+INCDIR =
+CFLAGS = -Os -G0 -Wall -fshort-wchar -fno-pic -mno-check-zero-division
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS = $(CFLAGS)
 
@@ -15,7 +15,7 @@ USE_KERNEL_LIBC = 1
 USE_KERNEL_LIBS = 1
 
 
-LIBDIR = 
+LIBDIR =
 LIBS = -lpspsystemctrl_kernel
 
 include $(PSPSDK)/lib/build_prx.mak
